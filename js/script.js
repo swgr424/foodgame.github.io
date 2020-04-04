@@ -3995,8 +3995,8 @@
                 for (; i < len; i++) {
                     fn(
                         elems[i], key, raw ?
-                            value :
-                            value.call(elems[i], i, fn(elems[i], key))
+                        value :
+                        value.call(elems[i], i, fn(elems[i], key))
                     );
                 }
             }
@@ -21198,12 +21198,12 @@ if (typeof jQuery === 'undefined') {
 * @param {string} direction Direction of the sort to be applied (`asc` or `desc`)
 * @returns {DataTables.Api} this
 *//**
-                                                                    * Set the ordering for the table.
-                                                                    *
-                                                                    * @param {array} order 1D array of sorting information to be applied.
-                                                                    * @param {array} [...] Optional additional sorting conditions
-                                                                    * @returns {DataTables.Api} this
-                                                                    *//**
+                                                                            * Set the ordering for the table.
+                                                                            *
+                                                                            * @param {array} order 1D array of sorting information to be applied.
+                                                                            * @param {array} [...] Optional additional sorting conditions
+                                                                            * @returns {DataTables.Api} this
+                                                                            *//**
 * Set the ordering for the table.
 *
 * @param {array} order 2D array of sorting information to be applied.
@@ -31392,10 +31392,10 @@ if (typeof jQuery === 'undefined') {
                     if (searchString.length === 0) return true;
                     var values = searchString.split(/[,\s]/);
                     for (var i = 0; i < values.length; i++) {
-                      if (values[i].length === 0) continue;
-                      if (string.indexOf(values[i]) !== -1) {
-                        return true;
-                      }
+                        if (values[i].length === 0) continue;
+                        if (string.indexOf(values[i]) !== -1) {
+                            return true;
+                        }
                     }
                     return false;
                 };

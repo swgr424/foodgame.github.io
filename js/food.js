@@ -9,15 +9,15 @@ $(function () {
 });
 
 function commaSeparatedMatch(data, value) {
-  if (value.length === 0) return true;
-  var values = value.split(/[,\s]/);
-  for (var i = 0; i < values.length; i++) {
-    if (values[i].length === 0) continue;
-    if (data.indexOf(values[i]) !== -1) {
-      return true;
+    if (value.length === 0) return true;
+    var values = value.split(/[,\s]/);
+    for (var i = 0; i < values.length; i++) {
+        if (values[i].length === 0) continue;
+        if (data.indexOf(values[i]) !== -1) {
+            return true;
+        }
     }
-  }
-  return false;
+    return false;
 }
 
 function init(json) {
