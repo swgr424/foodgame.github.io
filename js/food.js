@@ -20,6 +20,15 @@ function commaSeparatedMatch(data, value) {
     return false;
 }
 
+function matchMaterials(materialNames, value) {
+    for (var materialName of materialNames.split(',')) {
+        if (commaSeparatedMatch(materialName, value)) {
+            return true;
+        }
+    }
+    return false
+}
+
 function init(json) {
 
     initFunction();
@@ -355,6 +364,10 @@ function initRecipeTable(data) {
         for (var i = 0, len = searchCols.length; i < len; i++) {
             if (searchCols[i] == 0) {  // id
                 if (data[searchCols[i]] == value) {
+                    return true;
+                }
+            } else if (searchCols[i] == 10) {  // materials
+                if (matchMaterials(data[searchCols[i]], value)) {
                     return true;
                 }
             } else if (searchCols[i] == 20) {  // origin
@@ -4654,8 +4667,14 @@ function initCalResultTableCommon(mode, panel, data) {
             var searchCols = [5, 13];   //recipename, materials
 
             for (var i = 0, len = searchCols.length; i < len; i++) {
-                if (commaSeparatedMatch(data[searchCols[i]], value)) {
-                    return true;
+                if (searchCols[i] == 13) {  // materials
+                    if (matchMaterials(data[searchCols[i]], value)) {
+                        return true;
+                    }
+                } else {
+                    if (commaSeparatedMatch(data[searchCols[i]], value)) {
+                        return true;
+                    }
                 }
             }
 
@@ -5224,7 +5243,7 @@ function getMaterialsData(data, map) {
 function getMaterialsInfo(recipe, materials) {
     var materialsInfo = {};
     var materialsDisp = "";
-    var materialsVal = "";
+    var materialsVal = [];
     var materialsCount = 0;
     var veg = false;
     var meat = false;
@@ -5235,7 +5254,7 @@ function getMaterialsInfo(recipe, materials) {
         for (var m in materials) {
             if (recipe.materials[k].material == materials[m].materialId) {
                 materialsDisp += materials[m].name + "*" + recipe.materials[k].quantity + " ";
-                materialsVal += materials[m].name;
+                materialsVal.push(materials[m].name);
                 materialsCount += recipe.materials[k].quantity;
                 recipe.materials[k]["origin"] = materials[m].origin;
                 if (materials[m].origin == "菜棚" || materials[m].origin == "菜地" || materials[m].origin == "森林") {
@@ -5252,7 +5271,7 @@ function getMaterialsInfo(recipe, materials) {
         }
     }
     materialsInfo["materialsDisp"] = materialsDisp;
-    materialsInfo["materialsVal"] = materialsVal;
+    materialsInfo["materialsVal"] = materialsVal.join(',');
     materialsInfo["materialsCount"] = materialsCount;
     materialsInfo["veg"] = veg;
     materialsInfo["meat"] = meat;
